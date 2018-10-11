@@ -59,6 +59,8 @@ import com.google.protobuf.ByteString;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -105,11 +107,11 @@ public final class Fixtures {
     public static final String DATA_VERSION = "3F2FCED08798D83B873B5543BEFA6C4B";
     public static final int DATA_BUILD = 57218;
     public static final int BASE_BUILD = 56787;
-    public static final List<String> ERRORS = List.of("error01", "error02");
-    public static final Set<String> BATTLENET_MAPS = Set.of("Lava Flow", "Cursed Hollow");
-    public static final Set<Path> LOCAL_MAP_PATHS = Set.of(
+    public static final List<String> ERRORS = Arrays.asList("error01", "error02");
+    public static final Set<String> BATTLENET_MAPS = new HashSet<>(Arrays.asList("Lava Flow", "Cursed Hollow"));
+    public static final Set<Path> LOCAL_MAP_PATHS = new HashSet<>(Arrays.asList(
             Paths.get("Ladder2017Season1", "NewkirkPrecinctTE.SC2Map"),
-            Paths.get("Ladder2017Season1", "CactusValleyLE.SC2Map"));
+            Paths.get("Ladder2017Season1", "CactusValleyLE.SC2Map")));
     public static final String LOCAL_MAP_PATH = "Ladder2017Season1\\NewkirkPrecinctTE.SC2Map";
     public static final byte[] DATA_IN_BYTES = new byte[0xFF];
     public static final int RANDOM_SEED = 1;
@@ -128,15 +130,15 @@ public final class Fixtures {
     public static final int GAME_DURATION_LOOPS = 16268;
     public static final float GAME_DURATION_SECONDS = 726.30066f;
     public static final long UNIT_TAG = 100;
-    private static final Set<Long> SC2API_UNIT_TAGS = Set.of(100L, 200L, 300L);
-    public static final Set<Tag> UNIT_TAGS = Set.of(Tag.from(100L), Tag.from(200L), Tag.from(300L));
+    private static final Set<Long> SC2API_UNIT_TAGS = new HashSet<>(Arrays.asList(100L, 200L, 300L));
+    public static final Set<Tag> UNIT_TAGS = new HashSet<>(Arrays.asList(Tag.from(100L), Tag.from(200L), Tag.from(300L)));
     public static final int PSI_STORM_ABILITY_ID = 1036;
     private static final int ATTACK_ABILITY_ID = 3674;
     public static final int CONTROL_GROUP_INDEX = 3;
     public static final int UNIT_INDEX = 5;
     public static final String CHAT_MESSAGE = "gl hf";
     public static final int GAME_LOOP = 123;
-    public static final Set<Alert> ALERTS = Set.of(Alert.NUCLEAR_LAUNCH_DETECTED, Alert.NYDUS_WORM_DETECTED);
+    public static final Set<Alert> ALERTS = new HashSet<>(Arrays.asList(Alert.NUCLEAR_LAUNCH_DETECTED, Alert.NYDUS_WORM_DETECTED));
     public static final int MINERALS = 50;
     public static final int VESPENE = 25;
     public static final int FOOD_CAP = 15;
@@ -168,7 +170,7 @@ public final class Fixtures {
     public static final float VITAL_SCORE_LIFE = 100;
     public static final float VITAL_SCORE_SHIELDS = 200;
     public static final float VITAL_SCORE_ENERGY = 300;
-    public static final Set<Upgrade> UPGRADES = Set.of(Upgrades.PROTOSS_SHIELDS_LEVEL1, Upgrades.PHOENIX_RANGE_UPGRADE);
+    public static final Set<Upgrade> UPGRADES = new HashSet<>(Arrays.asList(Upgrades.PROTOSS_SHIELDS_LEVEL1, Upgrades.PHOENIX_RANGE_UPGRADE));
     public static final float POWER_SOURCE_RADIUS = 5.6f;
     public static final float UNIT_FACING = 0;
     public static final float UNIT_RADIUS = 1.125f;
@@ -190,7 +192,7 @@ public final class Fixtures {
     public static final long UNIT_ADDON_TAG = 2L;
     public static final int UNIT_CARGO_SPACE_TAKEN = 1;
     public static final int UNIT_CARGO_SPACE_MAX = 3;
-    public static final Set<Buff> UNIT_BUFFS = Set.of(Buffs.FUNGAL_GROWTH, Buffs.EMP_DECLOAK);
+    public static final Set<Buff> UNIT_BUFFS = new HashSet<>(Arrays.asList(Buffs.FUNGAL_GROWTH, Buffs.EMP_DECLOAK));
     public static final int UNIT_ASSIGNED_HARVESTERS = 17;
     public static final int UNIT_IDEAL_HARVESTERS = 26;
     public static final float UNIT_WEAPON_COOLDOWN = 6.0f;
@@ -598,7 +600,7 @@ public final class Fixtures {
         return Raw.PlayerRaw.newBuilder()
                 .addPowerSources(sc2ApiPowerSource())
                 .setCamera(sc2ApiPoint())
-                .addAllUpgradeIds(List.of(45, 99))
+                .addAllUpgradeIds(Arrays.asList(45, 99))
                 .build();
     }
 

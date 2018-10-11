@@ -223,7 +223,8 @@ class ControlInterfaceImpl implements ControlInterface {
                         ? Paths.get(theGame.getConfig().getString(OcraftApiConfig.GAME_EXE_PATH))
                         : processSettings.getProcessPath(),
                 isSet(theGame)
-                        ? theGame.getS2Process().pid()
+                        //theGame.getS2Process().pid()
+                        ? 1L
                         : null,
                 isSet(theGame)
                         ? theGame.getConfig().getInt(OcraftApiConfig.GAME_NET_PORT)
@@ -757,8 +758,8 @@ class ControlInterfaceImpl implements ControlInterface {
             Optional<Unit> unit = unitInPool.getUnit();
             if (unit.isPresent()) {
                 UnitType type = unit.get().getType();
-                return Set
-                        .of((UnitType) Units.TERRAN_COMMAND_CENTER, Units.PROTOSS_NEXUS, Units.ZERG_HATCHERY)
+                return new HashSet<>(
+                        Arrays.asList((UnitType) Units.TERRAN_COMMAND_CENTER, Units.PROTOSS_NEXUS, Units.ZERG_HATCHERY))
                         .contains(type);
             } else {
                 return false;

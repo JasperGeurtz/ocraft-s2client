@@ -232,7 +232,8 @@ public class S2Controller extends DefaultSubscriber<Response> {
                     .directory(gameRoot.resolve(getSupportDirPath()).toFile())
                     .start();
 
-            log.info("Launched SC2 ({}), PID: {}", exeFile, s2Process.pid());
+            //no pid()
+            log.info("Launched SC2 ({}), PID: {}", exeFile, s2Process);
 
             return this;
         } catch (IOException e) {
@@ -356,9 +357,12 @@ public class S2Controller extends DefaultSubscriber<Response> {
                 throw new IllegalStateException("Failed to stop previous game instance.");
             }
 
-            cfg = ConfigFactory.parseMap(
-                    Map.of(GAME_EXE_BUILD, baseBuildName, GAME_EXE_DATA_VER, dataVersion)
-            ).withFallback(cfg);
+            Map<String, String> map = new HashMap<>();
+            map.put(GAME_EXE_BUILD, baseBuildName);
+            map.put(GAME_EXE_DATA_VER, dataVersion);
+
+            cfg = ConfigFactory.parseMap(map)
+                    .withFallback(cfg);
 
             return launch();
         }

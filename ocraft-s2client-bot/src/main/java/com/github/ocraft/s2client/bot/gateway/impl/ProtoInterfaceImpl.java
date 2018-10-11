@@ -104,14 +104,16 @@ class ProtoInterfaceImpl implements ProtoInterface {
                     .start()
                     .untilReady();
 
-            waitForResponse(sendRequest(Requests.ping()))
-                    .flatMap(response -> response.as(ResponsePing.class))
-                    .ifPresentOrElse(ping -> {
-                        this.dataVersion = ping.getDataVersion();
-                        this.baseBuild = ping.getBaseBuild();
-                    }, () -> {
-                        throw new IllegalStateException("ping failed");
-                    });
+            Optional<ResponsePing> resp = waitForResponse(sendRequest(Requests.ping()))
+                    .flatMap(response -> response.as(ResponsePing.class));
+            if (resp.isPresent()) {
+                ResponsePing ping = resp.get();
+                this.dataVersion = ping.getDataVersion();
+                this.baseBuild = ping.getBaseBuild();
+            }
+            else {
+                throw new IllegalStateException("ping failed");
+            }
             return true;
         } catch (TimeoutException e) {
             log.error("Connection timeout.", e);

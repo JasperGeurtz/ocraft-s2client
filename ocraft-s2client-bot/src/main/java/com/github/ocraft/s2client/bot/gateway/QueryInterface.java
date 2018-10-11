@@ -207,15 +207,15 @@ public interface QueryInterface {
 
     default List<Point> calculateExpansionLocations(ObservationInterface observation) {
         return calculateExpansionLocations(
-                observation, null, ExpansionParameters.from(List.of(6.4f, 5.3f), 0.5f, 15.0f));
+                observation, null, ExpansionParameters.from(Arrays.asList(6.4f, 5.3f), 0.5f, 15.0f));
     }
 
     default List<Point> calculateExpansionLocations(ObservationInterface observation, DebugInterface debug) {
         return calculateExpansionLocations(
-                observation, debug, ExpansionParameters.from(List.of(6.4f, 5.3f), 0.5f, 15.0f));
+                observation, debug, ExpansionParameters.from(Arrays.asList(6.4f, 5.3f), 0.5f, 15.0f));
     }
 
-    private List<QueryBuildingPlacement> calculateQueries(float radius, float stepSize, Point2d center) {
+    static List<QueryBuildingPlacement> calculateQueries(float radius, float stepSize, Point2d center) {
         List<QueryBuildingPlacement> queries = new ArrayList<>();
 
         Point2d previousGrid = Point2d.of(Float.MAX_VALUE, Float.MAX_VALUE);
@@ -241,7 +241,7 @@ public interface QueryInterface {
         return queries;
     }
 
-    private static Point2d pointOnCircle(float radius, Point2d center, float degree) {
+    static Point2d pointOnCircle(float radius, Point2d center, float degree) {
         return Point2d.of(
                 (float) (radius * Math.cos(Math.toRadians(degree)) + center.getX()),
                 (float) (radius * Math.sin(Math.toRadians(degree)) + center.getY()));

@@ -29,6 +29,7 @@ package com.github.ocraft.s2client.bot.gateway.impl;
 import com.github.ocraft.s2client.bot.ClientError;
 import com.github.ocraft.s2client.bot.gateway.QueryInterface;
 import com.github.ocraft.s2client.protocol.action.ActionResult;
+import com.github.ocraft.s2client.protocol.data.Abilities;
 import com.github.ocraft.s2client.protocol.data.Ability;
 import com.github.ocraft.s2client.protocol.query.*;
 import com.github.ocraft.s2client.protocol.request.RequestQuery;
@@ -37,10 +38,7 @@ import com.github.ocraft.s2client.protocol.response.ResponseQuery;
 import com.github.ocraft.s2client.protocol.spatial.Point2d;
 import com.github.ocraft.s2client.protocol.unit.Unit;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 class QueryInterfaceImpl implements QueryInterface {
@@ -57,7 +55,7 @@ class QueryInterfaceImpl implements QueryInterface {
 
     @Override
     public AvailableAbilities getAbilitiesForUnit(Unit unit, boolean ignoreResourceRequirements) {
-        List<AvailableAbilities> abilitiesForUnits = getAbilitiesForUnits(List.of(unit), ignoreResourceRequirements);
+        List<AvailableAbilities> abilitiesForUnits = getAbilitiesForUnits(Arrays.asList(unit), ignoreResourceRequirements);
         return abilitiesForUnits.isEmpty() ? null : abilitiesForUnits.get(0);
     }
 
@@ -102,13 +100,13 @@ class QueryInterfaceImpl implements QueryInterface {
 
     @Override
     public float pathingDistance(Point2d start, Point2d end) {
-        List<Float> distances = pathingDistance(List.of(QueryPathing.path().from(start).to(end).build()));
+        List<Float> distances = pathingDistance(Arrays.asList(QueryPathing.path().from(start).to(end).build()));
         return distances.isEmpty() ? 0.0f : distances.get(0);
     }
 
     @Override
     public float pathingDistance(Unit start, Point2d end) {
-        List<Float> distances = pathingDistance(List.of(QueryPathing.path().from(start.getTag()).to(end).build()));
+        List<Float> distances = pathingDistance(Arrays.asList(QueryPathing.path().from(start.getTag()).to(end).build()));
         return distances.isEmpty() ? 0.0f : distances.get(0);
     }
 
@@ -132,7 +130,7 @@ class QueryInterfaceImpl implements QueryInterface {
 
     @Override
     public boolean placement(Ability ability, Point2d target) {
-        List<Boolean> placement = placement(List.of(
+        List<Boolean> placement = placement(Arrays.asList(
                 QueryBuildingPlacement.placeBuilding().useAbility(ability).on(target).build()
         ));
         return placement.isEmpty() ? false : placement.get(0);
@@ -140,7 +138,7 @@ class QueryInterfaceImpl implements QueryInterface {
 
     @Override
     public boolean placement(Ability ability, Point2d target, Unit unit) {
-        List<Boolean> placement = placement(List.of(
+        List<Boolean> placement = placement(Arrays.asList(
                 QueryBuildingPlacement.placeBuilding().withUnit(unit).useAbility(ability).on(target).build()
         ));
         return placement.isEmpty() ? false : placement.get(0);
